@@ -1,0 +1,94 @@
+
+body {
+  background-color: white; 
+  margin: 0;
+}
+
+/*
+#progress-container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#progress {
+  font-size: 3em;
+  color: white;
+}
+
+*/
+
+/* Estilos personalizados */
+.section {
+  text-align: center;
+}
+
+.section img {
+  max-width: 100%;
+  height: auto;
+}
+#map-container {
+  width: 600px; /* Ancho deseado del mapa */
+  margin: 0 auto; /* Esto centrará el contenedor horizontalmente */
+}
+
+
+/* Estilo para el efecto hover */
+.section a h3{
+  display: block;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none; 
+  color: black; 
+
+}
+
+
+a:hover {
+  text-decoration: none; 
+  color: black; 
+}
+
+.section a::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Color de fondo semi-transparente */
+  opacity: 0; /* Inicialmente no visible */
+  transition: opacity 0.3s ease; /* Transición de opacidad */
+  color: black;
+}
+
+.section a:hover::after {
+  opacity: 1; /* Al pasar el mouse, se vuelve completamente visible */
+}
+
+.section h3, .section p {
+  text-decoration: none !important; 
+  color: black !important; 
+  position: relative; /* Asegura que el texto esté por encima del fondo semi-transparente */
+  z-index: 1; /* Coloca el texto encima del fondo semi-transparente */
+}
+
+.footer {
+  /*position: fixed;*/
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.accordion-title {
+  cursor: pointer;
+}
+
+.card-body {
+  text-align: justify;
+}

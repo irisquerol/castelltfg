@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ca">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <title>Proposta 3D | Recuperem el castell Lliçà de Vall</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="index.css" />
+    <style>
+      #container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px; /* Espacio entre el visor 3D y el iframe */
+      }
+      .sketchfab-embed-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Barra superior de pestanyes -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="#">Recuperem el Castell</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Inici</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="historia.html">Història</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="proposta.html">Proposta 3D</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="participa.html">PARTICIPA</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Banner -->
+    <div class="carousel-inner">
+      <img
+        src="public/fotos/Artboard 1.png"
+        class="d-block w-100"
+        alt="Banner textura"
+      />
+    </div>
+
+    <!-- INFO PROPOSTA PAG -->
+    <div class="container mt-5">
+      <h3>Proposta 3D</h3>
+      <p>
+        Lliçà de Vall guarda als seus arxius històrics la fascinant referència a
+        un "senyor del Castell". Aquesta troballa desperta en mi una profunda
+        curiositat sobre l'autenticitat del castell i el seu impacte en la
+        història local. Hi ha ruïnes d´una torre en un turó proper al centre del
+        poble, conegut com el Castell de Lliçà de Vall. Aquest simple fet, però,
+        planteja una pregunta intrigant: Com era realment aquesta torre en la
+        seva època d'esplendor? Tot i la quantitat de documents i proves
+        històriques disponibles, la manca de recerca i acció per visualitzar i
+        preservar aquesta estructura és sorprenent. La torre, encara ara reduïda
+        a ruïnes, continua sent una peça fonamental de la història del nostre
+        poble. La manca d'acció en l'estudi i la restauració representa una
+        oportunitat perduda per explorar i visibilitzar el nostre patrimoni
+        cultural. Per què no s'ha investigat prou? És degut a la importància
+        històrica del castell, la disponibilitat de recursos o la manca
+        d'interès general? Segons les dades arqueològiques i històriques de la
+        Diputació de Barcelona, és important destacar que el 1988 es van
+        realitzar excavacions arqueològiques, encara que no gaire meticuloses,
+        dutes a terme per voluntaris. Aquestes excavacions, a més, es van veure
+        afectades per la contradicció a la informació dels documents medievals,
+        que indicaven l'existència d'un castell a l'època medieval. Tot i això,
+        es va concloure que la torre era d'època romana i que no va tenir ús a
+        l'època medieval. Aquest resultat suggereix la necessitat de fer una
+        revisió més exhaustiva i precisa de la història del lloc.
+      </p>
+    </div>
+    <div id="container"></div>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@v0.163.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@v0.163.0/examples/jsm/"
+        }
+      }
+    </script>
+
+    <script type="module">
+      import * as THREE from "three";
+      import { FBXLoader } from "three/addons/loaders/FBXLoader.js";
+      import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+      let camera, scene, renderer, controls;
+      let mesh;
+
+      init();
+      animate();
+
+      function init() {
+        scene = new THREE.Scene();
+        //CAMARA
+        camera = new THREE.PerspectiveCamera(
+          70,
+          window.innerWidth / window.innerHeight,
+          1,
+          2000
+        );
+        camera.position.set(0, 1, 5); //xyz
+
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.outputColorSpace = THREE.SRGBColorSpace;
+        renderer.setSize(1200, 720);
+        renderer.setClearColor(0xc0c0c0);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        document.getElementById("container").appendChild(renderer.domElement);
+
+        //CONTROLES:
+        controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.enablePan = false;
+        controls.minDistance = 5;
+        controls.maxDistance = 20;
+        controls.minPolarAngle = 0.5;
+        controls.maxPolarAngle = 1.5;
+        controls.autoRotate = false;
+        controls.target = new THREE.Vector3(0, 1, 0);
+        controls.update();
+
+        //TEXTURA Y FONDO:
+        const textureLoader = new THREE.TextureLoader();
+        const backgroundTexture = textureLoader.load("public/Fondo.jpg");
+        scene.background = backgroundTexture;
+
+        // LUCES:
+        let ambientLight = new THREE.AmbientLight(0x7c7c7c, 3.0);
+        scene.add(ambientLight);
+        let light = new THREE.DirectionalLight(0xffffff, 3.0);
+        light.position.set(0.32, 0.39, 0.7);
+        scene.add(light);
+
+        //CARGAR OBJETO 3D FBX:
+        const loader = new FBXLoader().setPath("public/fbx/");
+        loader.load(
+          "torre.FBX",
+          (object) => {
+            console.log("Model loaded");
+            mesh = object;
+
+            mesh.traverse((child) => {
+              if (child.isMesh) {
+                child.material.opacity = 1;
+              }
+            });
+
+            mesh.position.set(0, -1, 0); //x y z
+            mesh.scale.set(2, 2, 2); // Aumentar tamaño
+            scene.add(mesh);
+          },
+          (xhr) => {
+            console.log(
+              `Loading: ${((xhr.loaded / xhr.total) * 100).toFixed(2)}%`
+            );
+          },
+          (error) => {
+            console.error("An error occurred", error);
+          }
+        );
+
+        window.addEventListener("resize", onWindowResize);
+      }
+
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+
+      function animate() {
+        requestAnimationFrame(animate);
+
+        if (mesh) {
+          mesh.rotation.y += 0.01;
+        }
+
+        controls.update();
+        renderer.render(scene, camera);
+      }
+    </script>
+
+    <div class="sketchfab-embed-wrapper">
+      <iframe
+        title="Reconstrucció Torre del Castell"
+        frameborder="0"
+        allowfullscreen
+        mozallowfullscreen="true"
+        webkitallowfullscreen="true"
+        allow="autoplay; fullscreen; xr-spatial-tracking"
+        xr-spatial-tracking
+        execution-while-out-of-viewport
+        execution-while-not-rendered
+        web-share
+        width="1200"
+        height="720"
+        src="https://sketchfab.com/models/6253618f987e40ec83c66100babec4b8/embed"
+      ></iframe>
+      <p
+        style="
+          font-size: 13px;
+          font-weight: normal;
+          margin: 5px;
+          color: #4a4a4a;
+        "
+      >
+        <a
+          href="https://sketchfab.com/3d-models/reconstruccio-torre-del-castell-6253618f987e40ec83c66100babec4b8?utm_medium=embed&utm_campaign=share-popup&utm_content=6253618f987e40ec83c66100babec4b8"
+          target="_blank"
+          rel="nofollow"
+          style="font-weight: bold; color: #1caad9"
+        >
+          Reconstrucció Torre del Castell
+        </a>
+        by
+        <a
+          href="https://sketchfab.com/Castell_LLDV?utm_medium=embed&utm_campaign=share-popup&utm_content=6253618f987e40ec83c66100babec4b8"
+          target="_blank"
+          rel="nofollow"
+          style="font-weight: bold; color: #1caad9"
+        >
+          Castell_LLDV
+        </a>
+        on
+        <a
+          href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=6253618f987e40ec83c66100babec4b8"
+          target="_blank"
+          rel="nofollow"
+          style="font-weight: bold; color: #1caad9"
+          >Sketchfab</a
+        >
+      </p>
+    </div>
+  </body>
+</html>

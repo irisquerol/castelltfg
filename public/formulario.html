@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ca">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <title>Proposta 3D | Recuperem el castell Lliçà de Vall</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <!-- Barra superior de pestanyes -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="#">Recuperem el Castell</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Inici</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="historia.html">Història</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="proposta.html">Proposta 3D</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="participa.html">PARTICIPA</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Banner -->
+    <div class="carousel-inner">
+      <img
+        src="public/fotos/Artboard 1.png"
+        class="d-block w-100"
+        alt="Banner textura"
+      />
+    </div>
+
+    <!-- INFO PARTICIPA PAG -->
+    <div class="container mt-5">
+      <form id="firebase-form">
+        <div class="form-group">
+          <label>Forma de participació *</label>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="entity-type"
+              id="persona"
+              value="persona"
+              checked
+            />
+            <label class="form-check-label" for="persona"> Persona </label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="entity-type"
+              id="entitat"
+              value="entitat"
+            />
+            <label class="form-check-label" for="entitat"> Entitat </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label id="name-label" for="name">Nom i Cognoms: *</label>
+          <input
+            type="text"
+            id="nom"
+            name="name"
+            class="form-control"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="email">Correu electrònic *</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="form-control"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="comments">Comentaris</label>
+          <textarea
+            id="comments"
+            name="comments"
+            class="form-control"
+            rows="4"
+            cols="50"
+            maxlength="200"
+          ></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </form>
+      <div id="form-messages" class="mt-3"></div>
+    </div>
+
+    <!--SCRIPT PARA CAMBIAR EL LABEL-->
+    <script type="module">
+      document.addEventListener("DOMContentLoaded", function () {
+        const personaRadio = document.getElementById("persona");
+        const entitatRadio = document.getElementById("entitat");
+        const nameLabel = document.getElementById("name-label");
+
+        personaRadio.addEventListener("click", function () {
+          if (this.checked) {
+            nameLabel.textContent = "Nom i Cognoms: *";
+          }
+        });
+
+        entitatRadio.addEventListener("click", function () {
+          if (this.checked) {
+            nameLabel.textContent = "Nom de l'empresa o associació: *";
+          }
+        });
+      });
+    </script>
+
+    <!--SCRIPT DE FIREBASE-->
+    <script
+      type="module"
+      src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"
+    ></script>
+    <script
+      type="module"
+      src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"
+    ></script>
+    <script
+      type="module"
+      src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"
+    ></script>
+    <script
+      type="module"
+      src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"
+    ></script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        addDoc,
+      } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyAwjTQ2I1pnfZ5vhIyRFD7lhi6Q_ig2cuc",
+        authDomain: "castelltfg.firebaseapp.com",
+        projectId: "castelltfg",
+        storageBucket: "castelltfg.appspot.com",
+        messagingSenderId: "917026546654",
+        appId: "1:917026546654:web:654f5a285a5fd6be70734f",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+      // Subir datos form
+      document
+        .getElementById("firebase-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const entityType = document.querySelector(
+            'input[name="entity-type"]:checked'
+          ).value;
+          const name = document.getElementById("nom").value;
+          const email = document.getElementById("email").value;
+          const comments = document.getElementById("comments").value;
+          const formMessages = document.getElementById("form-messages");
+
+          try {
+            const docRef = await addDoc(collection(db, "participants"), {
+              entityType,
+              name,
+              email,
+              comments,
+            });
+            formMessages.innerHTML = `<div class="alert alert-success">Formulario enviado con éxito. Redirigiendo a la página anterior</div>`;
+            formMessages.scrollIntoView();
+            setTimeout(() => {
+              window.location.href = "participa.html";
+            }, 3000); // Espera 3 segundos antes de redirigir
+          } catch (error) {
+            formMessages.innerHTML = `<div class="alert alert-danger">Error al enviar el formulario: ${error.message}</div>`;
+            formMessages.scrollIntoView();
+          }
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "recuperemelcastell",
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

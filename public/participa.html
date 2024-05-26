@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ca">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <title>Proposta 3D | Recuperem el castell Lliçà de Vall</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <!-- Barra superior de pestanyes -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="#">Recuperem el Castell</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Inici</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="historia.html">Història</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="proposta.html">Proposta 3D</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="participa.html">PARTICIPA</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Banner -->
+    <div class="carousel-inner">
+      <img
+        src="public/fotos/Artboard 1.png"
+        class="d-block w-100"
+        alt="Banner textura"
+      />
+    </div>
+    <!-- INFO PARTICIPA PAG -->
+
+    <!-- Botó Participa i Contador -->
+    <div class="container mt-3">
+      <div class="d-flex justify-content-between align-items-center">
+        <span id="participation-count" class="badge badge-info"></span>
+        <a href="formulario.html" class="btn btn-primary">Participa!</a>
+      </div>
+    </div>
+
+    <!-- COMENTARIS -->
+    <div class="container mt-5">
+      <div class="row" id="comments-container">
+        <!-- Las tarjetas de comentarios se insertarán aquí -->
+      </div>
+    </div>
+
+    <!--SCRIPT DE FIREBASE-->
+    <script
+      type="module"
+      src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"
+    ></script>
+    <script
+      type="module"
+      src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"
+    ></script>
+    <script
+      type="module"
+      src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"
+    ></script>
+    <script
+      type="module"
+      src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"
+    ></script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        getDocs,
+      } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyAwjTQ2I1pnfZ5vhIyRFD7lhi6Q_ig2cuc",
+        authDomain: "castelltfg.firebaseapp.com",
+        projectId: "castelltfg",
+        storageBucket: "castelltfg.appspot.com",
+        messagingSenderId: "917026546654",
+        appId: "1:917026546654:web:654f5a285a5fd6be70734f",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+      // Obtener comentaris i contador
+      async function fetchCommentsAndCount() {
+        const commentsContainer = document.getElementById("comments-container");
+        const participationCount = document.getElementById(
+          "participation-count"
+        );
+        try {
+          const querySnapshot = await getDocs(collection(db, "participants"));
+          let count = 0;
+          querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            count++;
+            const commentCard = `
+            <div class="col-md-4 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">${data.name}</h5>
+                  <p class="card-text">${data.comments}</p>
+                </div>
+              </div>
+            </div>
+          `;
+            commentsContainer.innerHTML += commentCard;
+          });
+          participationCount.textContent = `Han participat ${count} persones o entitats`;
+        } catch (error) {
+          console.error("Error al obtenir els comentaris:", error);
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", fetchCommentsAndCount);
+    </script>
+  </body>
+</html>
