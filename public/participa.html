@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
-    <title>Proposta 3D | Recuperem el castell Lliçà de Vall</title>
+    <title>Participa| Recuperem el Castell Lliçà de Vall</title>
 
     <!-- Bootstrap CSS -->
     <link
@@ -16,12 +16,33 @@
 
     <!-- CSS personalizado -->
     <link rel="stylesheet" href="index.css" />
+    <style>
+      .comment-card {
+        background-color: #f9f9f9;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+        transition: transform 0.3s;
+      }
+      .comment-card:hover {
+        transform: translateY(-10px);
+      }
+      .comment-card h5 {
+        color: #007bff;
+      }
+      .badge-info {
+        font-size: 1.2rem;
+      }
+    </style>
   </head>
   <body>
     <!-- Barra superior de pestanyes -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
-        <a class="navbar-brand" href="#">Recuperem el Castell</a>
+        <a class="navbar-brand" href="#"
+          >Recuperem el Castell de Lliçà de Vall</a
+        >
         <button
           class="navbar-toggler"
           type="button"
@@ -59,18 +80,22 @@
         alt="Banner textura"
       />
     </div>
-    <!-- INFO PARTICIPA PAG -->
-
     <!-- Botó Participa i Contador -->
     <div class="container mt-3">
       <div class="d-flex justify-content-between align-items-center">
         <span id="participation-count" class="badge badge-info"></span>
         <a href="formulario.html" class="btn btn-primary">Participa!</a>
       </div>
+      <h3>La Nostra Proposta</h3>
+      <p>'Restaurem el Castell' és un projecte que té l'objectiu de recuperar un monument que és el més antic del nostre poble, Lliçà de Vall. 
+        El nostre propòsit es tenir tots els mitjans per aconseguir aquest repte.
+        Per això necessitem la vostra participació i no deixar en l'oblit aquest històric monument!
+      </p>
+      
     </div>
-
     <!-- COMENTARIS -->
     <div class="container mt-5">
+      <h4>Comentaris d'alguns participants:</h3>
       <div class="row" id="comments-container">
         <!-- Las tarjetas de comentarios se insertarán aquí -->
       </div>
@@ -99,6 +124,8 @@
         getFirestore,
         collection,
         getDocs,
+        query,
+        where,
       } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
 
       const firebaseConfig = {
@@ -113,31 +140,37 @@
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
       const db = getFirestore(app);
-      // Obtener comentaris i contador
+
+      // Baixar comentaris i contador
       async function fetchCommentsAndCount() {
         const commentsContainer = document.getElementById("comments-container");
         const participationCount = document.getElementById(
           "participation-count"
         );
         try {
-          const querySnapshot = await getDocs(collection(db, "participants"));
-          let count = 0;
+          const allDocsSnapshot = await getDocs(collection(db, "participants"));
+          let totalCount = allDocsSnapshot.size;
+          participationCount.textContent = `Participants en aquest projecte: ${totalCount}`;
+
+          const q = query(
+            collection(db, "participants"),
+            where("visible", "==", true)
+          );
+          const querySnapshot = await getDocs(q);
           querySnapshot.forEach((doc) => {
             const data = doc.data();
-            count++;
-            const commentCard = `
-            <div class="col-md-4 mb-4">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">${data.name}</h5>
-                  <p class="card-text">${data.comments}</p>
+            if (data.comments && data.comments.length > 4) {
+              const commentCard = `
+              <div class="col-md-4">
+                <div class="comment-card">
+                  <h5>${data.comments}</h5>
+                  <p>${data.name}</p>
                 </div>
               </div>
-            </div>
-          `;
-            commentsContainer.innerHTML += commentCard;
+            `;
+              commentsContainer.innerHTML += commentCard;
+            }
           });
-          participationCount.textContent = `Han participat ${count} persones o entitats`;
         } catch (error) {
           console.error("Error al obtenir els comentaris:", error);
         }
