@@ -1,4 +1,4 @@
-import * as THREE from "three";
+/*import * as THREE from "three";
 //import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { FBXLoader } from "three/addons/loaders/FBXLoader.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
@@ -82,7 +82,7 @@ function init() {
       console.error(error);
     }
   );
-  */
+  *//*
   //CARGAR OBJETO 3D FBX:
   const loader = new FBXLoader().setPath("public/fbx/");
   loader.load(
@@ -125,4 +125,4 @@ function animate() {
   mesh.rotation.y += 0.01;
   controls.update();
   renderer.render(scene, camera);
-}
+}*/

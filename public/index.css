@@ -4,24 +4,6 @@ body {
   margin: 0;
 }
 
-/*
-#progress-container {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#progress {
-  font-size: 3em;
-  color: white;
-}
-
-*/
-
-/* Estilos personalizados */
 .section {
   text-align: center;
 }
@@ -31,10 +13,9 @@ body {
   height: auto;
 }
 #map-container {
-  width: 600px; /* Ancho deseado del mapa */
-  margin: 0 auto; /* Esto centrará el contenedor horizontalmente */
+  width: 600px; /* Ancho  */
+  margin: 0 auto; /* centra horizontalmente */
 }
-
 
 /* Estilo para el efecto hover */
 .section a h3{
@@ -45,8 +26,6 @@ body {
   color: black; 
 
 }
-
-
 a:hover {
   text-decoration: none; 
   color: black; 
@@ -92,3 +71,76 @@ a:hover {
 .card-body {
   text-align: justify;
 }
+/*Participa.HTML*/
+.comment-card {
+  background-color: aliceblue;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.comment-card:hover {
+  transform: translateY(-10px);
+}
+.comment-card p {
+  font-style: italic;
+  text-align: left;
+  flex: 1;
+}
+
+.comment-card h6 {
+  text-align: right;
+  color: #0e4681;
+}
+
+.navbar,
+.badge-info {
+  color: #f9f9f9;
+}
+
+
+.badge-info {
+  font-size: 1.2rem;
+  background-color: #0e4681;
+
+}
+h3 {
+  color: #0e4681;
+
+}
+h4 {
+  color: #0e4681;
+
+}
+.btn-primary {
+  background-color: #0e4681;
+  border-color: #0e4681;
+  width: 150px;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
+  background-color: #0c3764;
+  border-color: #0c3764;
+}
+
+.proposal-card {
+  background-color: aliceblue;
+  /*border: 1px solid grey;*/
+  border-radius: 10px;
+}
+
+.card-title {
+  color: #0c3764;
+}
+
+.card-text {
+  font-size: 1.1rem;
+  text-align: justify;
+  margin-top: 3%;
+}
+

@@ -29,6 +29,14 @@
         align-items: center;
       }
     </style>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@v0.163.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@v0.163.0/examples/jsm/"
+        }
+      }
+    </script>
   </head>
   <body>
     <!-- Barra superior de pestanyes -->
@@ -105,15 +113,6 @@
       </p>
     </div>
     <div id="container"></div>
-
-    <script type="importmap">
-      {
-        "imports": {
-          "three": "https://unpkg.com/three@v0.163.0/build/three.module.js",
-          "three/addons/": "https://unpkg.com/three@v0.163.0/examples/jsm/"
-        }
-      }
-    </script>
 
     <script type="module">
       import * as THREE from "three";

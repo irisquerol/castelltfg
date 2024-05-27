@@ -13,28 +13,8 @@
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       rel="stylesheet"
     />
-
     <!-- CSS personalizado -->
-    <link rel="stylesheet" href="index.css" />
-    <style>
-      .comment-card {
-        background-color: #f9f9f9;
-        border-radius: 15px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        margin-bottom: 20px;
-        transition: transform 0.3s;
-      }
-      .comment-card:hover {
-        transform: translateY(-10px);
-      }
-      .comment-card h5 {
-        color: #007bff;
-      }
-      .badge-info {
-        font-size: 1.2rem;
-      }
-    </style>
+    <link href="index.css" rel="stylesheet" />
   </head>
   <body>
     <!-- Barra superior de pestanyes -->
@@ -81,23 +61,33 @@
       />
     </div>
     <!-- Botó Participa i Contador -->
-    <div class="container mt-3">
-      <div class="d-flex justify-content-between align-items-center">
-        <span id="participation-count" class="badge badge-info"></span>
-        <a href="formulario.html" class="btn btn-primary">Participa!</a>
+    <div class="container mt-5">
+      <div class="card proposal-card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center">
+            <h3>La Nostra Proposta</h3>
+            <a href="formulario.html" class="btn btn-primary">Participa!</a>
+          </div>
+
+          <p class="card-text">
+            'Restaurem el Castell' és un projecte que té l'objectiu de recuperar
+            un monument que és el més antic del nostre poble, Lliçà de Vall. El
+            nostre propòsit es tenir tots els mitjans per aconseguir aquest
+            repte. Per això necessitem la vostra participació i no deixar en
+            l'oblit aquest històric monument!
+          </p>
+        </div>
       </div>
-      <h3>La Nostra Proposta</h3>
-      <p>'Restaurem el Castell' és un projecte que té l'objectiu de recuperar un monument que és el més antic del nostre poble, Lliçà de Vall. 
-        El nostre propòsit es tenir tots els mitjans per aconseguir aquest repte.
-        Per això necessitem la vostra participació i no deixar en l'oblit aquest històric monument!
-      </p>
-      
     </div>
+
     <!-- COMENTARIS -->
     <div class="container mt-5">
-      <h4>Comentaris d'alguns participants:</h3>
+      <div class="d-flex justify-content-between align-items-center">
+        <h4>Comentaris d'alguns participants:</h4>
+        <span id="participation-count" class="badge badge-info"></span>
+      </div>
       <div class="row" id="comments-container">
-        <!-- Las tarjetas de comentarios se insertarán aquí -->
+        <!--aquí mediante js -->
       </div>
     </div>
 
@@ -150,7 +140,7 @@
         try {
           const allDocsSnapshot = await getDocs(collection(db, "participants"));
           let totalCount = allDocsSnapshot.size;
-          participationCount.textContent = `Participants en aquest projecte: ${totalCount}`;
+          participationCount.textContent = `${totalCount} Col·laboradors`;
 
           const q = query(
             collection(db, "participants"),
@@ -160,22 +150,39 @@
           querySnapshot.forEach((doc) => {
             const data = doc.data();
             if (data.comments && data.comments.length > 4) {
+              //si tiene más que 4 caracteres se muestra el comentario
               const commentCard = `
-              <div class="col-md-4">
-                <div class="comment-card">
-                  <h5>${data.comments}</h5>
-                  <p>${data.name}</p>
+                <div class="col-md-4">
+                  <div class="comment-card">
+                    <p>${data.comments}</p>
+                    <h6>${data.name}</h6>
+                  </div>
                 </div>
-              </div>
-            `;
+              `;
               commentsContainer.innerHTML += commentCard;
             }
           });
+          // Ajustar la altura de las tarjetas
+          adjustCardHeights();
         } catch (error) {
           console.error("Error al obtenir els comentaris:", error);
         }
       }
 
+      function adjustCardHeights() {
+        const cards = document.querySelectorAll(".comment-card");
+        let maxHeight = 0;
+        cards.forEach((card) => {
+          card.style.height = "auto"; // Restablecer altura
+          let cardHeight = card.offsetHeight;
+          if (cardHeight > maxHeight) {
+            maxHeight = cardHeight;
+          }
+        });
+        cards.forEach((card) => {
+          card.style.height = `${maxHeight}px`;
+        });
+      }
       document.addEventListener("DOMContentLoaded", fetchCommentsAndCount);
     </script>
   </body>
