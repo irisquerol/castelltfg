@@ -1,7 +1,24 @@
 
 body {
-  background-color: white; 
   margin: 0;
+}
+.navbar-custom {
+  background-color: #ad9a9a; 
+}
+/*Titulo*/
+.navbar-light .navbar-brand {
+  color: #4e1a1a;
+  font-weight: bold;
+}
+.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
+  color: #4e1a1a;
+  font-weight: bold;
+
+}
+/*INDEX*/
+.intro-text {
+  font-size: 1.2rem;
+  text-align: justify;
 }
 
 .section {
@@ -15,6 +32,7 @@ body {
 #map-container {
   width: 600px; /* Ancho  */
   margin: 0 auto; /* centra horizontalmente */
+
 }
 
 /* Estilo para el efecto hover */
@@ -71,9 +89,11 @@ a:hover {
 .card-body {
   text-align: justify;
 }
+
+
 /*Participa.HTML*/
 .comment-card {
-  background-color: aliceblue;
+  background-color: #f8e3e3;
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -82,7 +102,9 @@ a:hover {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin-top: 1%;
 }
+
 .comment-card:hover {
   transform: translateY(-10px);
 }
@@ -94,48 +116,49 @@ a:hover {
 
 .comment-card h6 {
   text-align: right;
-  color: #0e4681;
+  color: #4e1a1a;
+  
 }
-
+/* para el contador*/
 .navbar,
 .badge-info {
   color: #f9f9f9;
 }
-
-
 .badge-info {
   font-size: 1.2rem;
-  background-color: #0e4681;
+  background-color: #4e1a1ad2;
 
 }
+
 h3 {
-  color: #0e4681;
+  color: #4e1a1a;
 
 }
 h4 {
-  color: #0e4681;
+  color: #4e1a1a;
 
 }
 .btn-primary {
-  background-color: #0e4681;
-  border-color: #0e4681;
+  background-color: #4e1a1ad2;
+  border-color: #4e1a1a;
   width: 150px;
 }
 
 .btn-primary:hover {
   box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
-  background-color: #0c3764;
-  border-color: #0c3764;
+  background-color: #4e1a1a;
+  border-color: #4e1a1a;
 }
 
+/*La Nostra Proposta*/
 .proposal-card {
-  background-color: aliceblue;
+  background-color: #f8e3e3;
   /*border: 1px solid grey;*/
   border-radius: 10px;
 }
 
 .card-title {
-  color: #0c3764;
+  color: #4e1a1a;
 }
 
 .card-text {
