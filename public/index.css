@@ -73,21 +73,25 @@ a:hover {
   z-index: 1; /* Coloca el texto encima del fondo semi-transparente */
 }
 
-.footer {
-  /*position: fixed;*/
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
-  padding: 20px 0;
-}
 
+
+/*HISTORIA*/
 .accordion-title {
   cursor: pointer;
 }
 
 .card-body {
   text-align: justify;
+}
+.iframe-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px; /* Ajusta el margen superior según sea necesario */
+}
+.iframe-container iframe {
+  border: 0;
+  max-width: 100%;
 }
 
 
@@ -138,18 +142,6 @@ h4 {
   color: #4e1a1a;
 
 }
-.btn-primary {
-  background-color: #4e1a1ad2;
-  border-color: #4e1a1a;
-  width: 150px;
-}
-
-.btn-primary:hover {
-  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
-  background-color: #4e1a1a;
-  border-color: #4e1a1a;
-}
-
 /*La Nostra Proposta*/
 .proposal-card {
   background-color: #f8e3e3;
@@ -167,3 +159,87 @@ h4 {
   margin-top: 3%;
 }
 
+/*FORM:*/
+.form-group label {
+  color: #4e1a1a; /*etiquetas */
+  font-weight: bold;
+}
+
+/*etiquetas de los radio buttons */
+.form-check-label {
+  color: #4e1a1a; 
+  font-weight: bold;
+}
+
+/* campos de entrada */
+.form-control {
+  background-color: #f8e3e3; 
+  border: 1px solid #ad9a9a; 
+  color: #4e1a1a; 
+}
+
+.form-group {
+  margin: 3%; /* Agrega margen inferior a los grupos de formulario */
+}
+
+.form-control {
+  background-color: #f0d9d9; /* Tonos más oscuros para el fondo del textbox */
+  border: 1px solid #ad9a9a; /* Borde marrón claro */
+  color: #4e1a1a; /* Texto marrón rojizo */
+  padding: 10px; /* Agrega relleno alrededor del texto en los campos de entrada */
+}
+
+.form-control:focus {
+  background-color: #ecdcdc; 
+}
+
+
+.form-control::placeholder {
+  color: #ad9a9a; 
+}
+
+.form-check-input {
+  background-color: #4e1a1a; 
+  border: 1px solid #ad9a9a; 
+}
+
+.btn-primary {
+  background-color: #4e1a1a; 
+  border-color: #4e1a1a; 
+  width: 150px;
+}
+
+.btn-primary:hover {
+  background-color: #6a2e2e; 
+  border-color: #6a2e2e; 
+
+}
+button[type="submit"] {
+  margin: 0 auto; 
+  display: block; 
+}
+#form-messages .alert {
+  color: #4e1a1a; 
+}
+
+#form-messages .alert-success {
+  background-color: #f8e3e3; 
+  border-color: #ad9a9a; 
+}
+
+#form-messages .alert-danger {
+  background-color: #f8e3e3; /* Beige claro para mensajes de error */
+  border-color: #ad9a9a; /* Borde marrón claro */
+}
+
+
+
+
+.footer {
+  /*position: fixed;*/
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+}
