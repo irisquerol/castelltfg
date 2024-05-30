@@ -37,6 +37,12 @@
         }
       }
     </script>
+
+     <!-- ICONOS -->
+     <link
+     rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+   />
   </head>
   <body>
     <!-- Barra superior de pestanyes -->
@@ -112,7 +118,110 @@
         revisió més exhaustiva i precisa de la història del lloc.
       </p>
     </div>
-    <div id="container"></div>
+  
+    <div class="container mt-5">
+      
+      <div id="accordion">
+        <!-- Three.js -->
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">
+              <button
+                class="btn btn-link accordion-title w-100 text-left"
+                style="font-size: 20px; color: black; text-decoration: none"
+                data-toggle="collapse"
+                data-target="#theme1"
+                aria-expanded="false"
+                aria-controls="theme1"
+              >
+                <i class="fas fa-chevron-down"></i>
+                Three.js
+              </button>
+            </h5>
+          </div>
+
+          <div id="theme1" class="collapse" aria-labelledby="headingOne">
+            <div class="card-body">
+              <div class="iframe-container">  
+                <div id="container"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+          <div class="card-header">
+            <h5 class="mb-0">
+              <button
+                class="btn btn-link accordion-title w-100 text-left"
+                style="font-size: 20px; color: black; text-decoration: none"
+                data-toggle="collapse"
+                data-target="#theme2"
+                aria-expanded="true"
+                aria-controls="theme2"
+              >
+                <i class="fas fa-chevron-up"></i>
+                Sketchfab
+              </button>
+            </h5>
+          </div>
+          <div id="theme2" class="collapse show" aria-labelledby="headingTwo">
+            <div class="card-body">
+              <div class="iframe-container">
+                <div class="sketchfab-embed-wrapper">
+                  <iframe
+                    title="Reconstrucció Torre del Castell"
+                    frameborder="0"
+                    allowfullscreen
+                    mozallowfullscreen="true"
+                    webkitallowfullscreen="true"
+                    allow="autoplay; fullscreen; xr-spatial-tracking"
+                    xr-spatial-tracking
+                    execution-while-out-of-viewport
+                    execution-while-not-rendered
+                    web-share
+                    width="1200"
+                    height="720"
+                    src="https://sketchfab.com/models/6253618f987e40ec83c66100babec4b8/embed"
+                  ></iframe>
+                  <p
+                    style="
+                      font-size: 13px;
+                      font-weight: normal;
+                      margin: 5px;
+                      color: #4a4a4a;
+                    "
+                  >
+                    <a
+                      href="https://sketchfab.com/3d-models/reconstruccio-torre-del-castell-6253618f987e40ec83c66100babec4b8?utm_medium=embed&utm_campaign=share-popup&utm_content=6253618f987e40ec83c66100babec4b8"
+                      target="_blank"
+                      rel="nofollow"
+                      style="font-weight: bold; color: #1caad9"
+                    >
+                      Reconstrucció Torre del Castell
+                    </a>
+                    by
+                    <a
+                      href="https://sketchfab.com/Castell_LLDV?utm_medium=embed&utm_campaign=share-popup&utm_content=6253618f987e40ec83c66100babec4b8"
+                      target="_blank"
+                      rel="nofollow"
+                      style="font-weight: bold; color: #1caad9"
+                    >
+                      Castell_LLDV
+                    </a>
+                    on
+                    <a
+                      href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=6253618f987e40ec83c66100babec4b8"
+                      target="_blank"
+                      rel="nofollow"
+                      style="font-weight: bold; color: #1caad9"
+                      >Sketchfab</a
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
     <script type="module">
       import * as THREE from "three";
@@ -138,7 +247,7 @@
 
         renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.outputColorSpace = THREE.SRGBColorSpace;
-        renderer.setSize(1200, 720);
+        renderer.setSize(1000, 600);
         renderer.setClearColor(0xc0c0c0);
         renderer.setPixelRatio(window.devicePixelRatio);
         document.getElementById("container").appendChild(renderer.domElement);
@@ -202,7 +311,7 @@
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
 
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        /*renderer.setSize(window.innerWidth, window.innerHeight);*/
       }
 
       function animate() {
@@ -217,57 +326,29 @@
       }
     </script>
 
-    <div class="sketchfab-embed-wrapper">
-      <iframe
-        title="Reconstrucció Torre del Castell"
-        frameborder="0"
-        allowfullscreen
-        mozallowfullscreen="true"
-        webkitallowfullscreen="true"
-        allow="autoplay; fullscreen; xr-spatial-tracking"
-        xr-spatial-tracking
-        execution-while-out-of-viewport
-        execution-while-not-rendered
-        web-share
-        width="1200"
-        height="720"
-        src="https://sketchfab.com/models/6253618f987e40ec83c66100babec4b8/embed"
-      ></iframe>
-      <p
-        style="
-          font-size: 13px;
-          font-weight: normal;
-          margin: 5px;
-          color: #4a4a4a;
-        "
-      >
-        <a
-          href="https://sketchfab.com/3d-models/reconstruccio-torre-del-castell-6253618f987e40ec83c66100babec4b8?utm_medium=embed&utm_campaign=share-popup&utm_content=6253618f987e40ec83c66100babec4b8"
-          target="_blank"
-          rel="nofollow"
-          style="font-weight: bold; color: #1caad9"
-        >
-          Reconstrucció Torre del Castell
-        </a>
-        by
-        <a
-          href="https://sketchfab.com/Castell_LLDV?utm_medium=embed&utm_campaign=share-popup&utm_content=6253618f987e40ec83c66100babec4b8"
-          target="_blank"
-          rel="nofollow"
-          style="font-weight: bold; color: #1caad9"
-        >
-          Castell_LLDV
-        </a>
-        on
-        <a
-          href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=6253618f987e40ec83c66100babec4b8"
-          target="_blank"
-          rel="nofollow"
-          style="font-weight: bold; color: #1caad9"
-          >Sketchfab</a
-        >
-      </p>
-    </div>
+    
+
+
+    <!-- Bootstrap JS y jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Script para cambiar icono de flechas-->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const accordions = document.querySelectorAll(".accordion-title");
+
+        accordions.forEach((accordion) => {
+          accordion.addEventListener("click", function () {
+            const icon = this.querySelector("i");
+            const isExpanded = this.getAttribute("aria-expanded") === "true";
+
+            icon.classList.toggle("fa-chevron-down", isExpanded);
+            icon.classList.toggle("fa-chevron-up", !isExpanded);
+          });
+        });
+      });
+    </script>
     <div class="container mt-5">
       <footer class="footer">
         <div class="container">
